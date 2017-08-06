@@ -29,9 +29,9 @@ def scrape_page(page, detailpageurlprefix)
       "date_scraped" => Date.today.to_s
     }
 
-    ScraperWiki.save_sqlite(['council_reference'], record
+    ScraperWiki.save_sqlite(['council_reference'], record)
      
-    return record
+  #  return record
     
   end
 end
@@ -52,7 +52,7 @@ secondPage = form.submit(form.button_with(value: "Search"))
 number_pages = secondPage.at("#ctl00_MainBodyContent_mPagingControl_pageNumberLabel").inner_text.split(" ")[3].to_i
 #puts number_pages
 
-applications = []
+#applications = []
 
 ## iterate and scrape every page
 (1..number_pages).each do |no|
@@ -60,15 +60,15 @@ applications = []
   
   decisionPage = agent.get("https://eservices.moreland.vic.gov.au/ePathway/Production/Web/GeneralEnquiry/EnquirySummaryView.aspx?PageNumber=#{no}")
   #puts "Scraping page #{no} of results..."
-  application = scrape_page(decisionPage, "https://eservices.moreland.vic.gov.au/ePathway/Production/Web/GeneralEnquiry/")
+  scrape_page(decisionPage, "https://eservices.moreland.vic.gov.au/ePathway/Production/Web/GeneralEnquiry/")
   #puts hashRecord.to_json
 
   
-  applications << application
+#  applications << application
 
 end
 
-puts applications
+#puts applications
 
 # Setup a specific instance of an Azure::Storage::Client
 #  client = Azure::Storage::Client.create(:storage_account_name => 'your account name', :storage_access_key => 'your access key')
